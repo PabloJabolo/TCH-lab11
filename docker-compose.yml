@@ -1,0 +1,60 @@
+version: "3.2"
+services:
+  nginx:
+    # Kontener NGINX obsługujący serwer WWW
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    ports:
+      - 6666:80  # Przekierowanie portu 6666 hosta na port 80 w kontenerze NGINX
+    restart: unless-stopped  # Automatyczne uruchamianie usługi, jeśli nie została celowo zatrzymana
+    networks:
+      - frontend  # Podłączenie do sieci frontend
+      - backend  # Podłączenie do sieci backend
+    volumes:
+      - ./data/:/var/www/html/  # Montowanie katalogu "./data/" na katalog "/var/www/html/" w kontenerze Nginx
+
+  mysql_db:
+    build:
+      context: ./mysql
+      dockerfile: Dockerfile
+    command: --default-authentication-plugin=mysql_native_password  # Ustawienie domyślnej wtyczki uwierzytelniania
+    networks:
+      - backend  # Podłączenie do sieci backend
+    restart: unless-stopped  # Automatyczne uruchamianie usługi, jeśli nie została celowo zatrzymana
+    environment:
+      MYSQL_ROOT_PASSWORD: root  # Ustawienie hasła dla konta administratora MySQL
+    volumes:
+      - mysql_data:/var/lib/mysql  # Montowanie woluminu "mysql_data" na katalog "/var/lib/mysql" w kontenerze MySQL
+
+  php:
+    build:
+      context: ./php
+      dockerfile: Dockerfile
+    networks:
+      - backend  # Podłączenie do sieci backend
+    volumes:
+      - ./data/:/var/www/html/  # Montowanie katalogu "./data/" na katalog "/var/www/html/" w kontenerze PHP
+
+  phpmyadmin:
+    build:
+      context: ./phpmyadmin
+      dockerfile: Dockerfile
+    networks:
+      - backend  # Podłączenie do sieci backend
+    ports:
+      - 6001:80  # Przekierowanie portu 6001 hosta na port 80 w kontenerze phpMyAdmin
+    restart: unless-stopped  # Automatyczne uruchamianie usługi, jeśli nie została celowo zatrzymana
+    environment:
+      - PMA_ARBITRARY=1  # Uruchomienie phpMyAdmin z opcją dowolnego serwera na stronie logowania
+
+networks:
+  frontend:
+    driver: bridge
+
+  backend:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    # Wolumin dla przechowywania danych MySQL
