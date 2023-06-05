@@ -12,13 +12,13 @@ Sprawozdanie - laboratorium 11
 
 `docker compose up -d --build`
 
-![Działanie aplikacji](img/budowanie.png)
+![Działanie aplikacji](img/budowanie.jpg)
 
 ---
 
 #### 2. Odblokowanie portu 6666 w przeglądarce
 
-![Działanie aplikacji](img/chrome.png)
+![Działanie aplikacji](img/chrome.jpg)
 
 ---
 
@@ -26,15 +26,15 @@ Sprawozdanie - laboratorium 11
 
 `http://localhost:6666/`
 
-![Działanie aplikacji](img/nginx6666.png)
+![Działanie aplikacji](img/nginx6666.jpg)
 
-![Działanie aplikacji](img/nginx_polaczenie.png)
+![Działanie aplikacji](img/nginx_polaczenie.jpg)
 
 ---
 
 `http://localhost:6001/`
 
-![Działanie aplikacji](img/baza.png)
+![Działanie aplikacji](img/baza.jpg)
 
 ---
 
