@@ -40,7 +40,7 @@ Sprawozdanie - laboratorium 11
 
 ---
 
-#### 4. Zatrzymanie oraz usunięcie konterów:
+#### 4. Zatrzymanie oraz usunięcie kontenerów:
 
 `docker compose down`
 
